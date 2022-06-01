@@ -1,20 +1,24 @@
-#include "main.h"
-#include <stdio.h>
 #include <pico/stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include <bsp/rp2040/board.h>
+#include <tusb.h>
+
+#include "main.h"
 
 int main()
 {
-	// stdio_init_all();
+	stdio_init_all();
 	// while (!stdio_usb_connected()) {
 	//         printf(".");
 	//         sleep_ms(500);
 	// }
 	// puts("USB host connected!\n");
 	i2c_setup(i2c_receive_callback, i2c_request_callback);
+	tusb_init();
 
 	while (1) {
-		sleep_ms(500);
-		// tuh_task();
+		tuh_task();
 	}
 }
 
@@ -26,5 +30,12 @@ void i2c_receive_callback(int len)
 
 void i2c_request_callback()
 {
-	i2c_write("owo", 32);
+}
+
+void tuh_mount_cb(uint8_t dev_addr)
+{
+}
+
+void tuh_umount_cb(uint8_t dev_addr)
+{
 }

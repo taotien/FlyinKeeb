@@ -1,13 +1,24 @@
 add_executable(${PROJECT_NAME}
 	main.c
 	i2c.cpp
+	keyboard.c
 )
 
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall)
+target_include_directories(${PROJECT_NAME} PUBLIC
+	${CMAKE_CURRENT_SOURCE_DIR}
+	)
+
+# target_compile_options(${PROJECT_NAME} PRIVATE -Wall)
+target_compile_options(${PROJECT_NAME} PRIVATE)
 
 target_link_libraries(${PROJECT_NAME} 
 	pico_stdlib
+	pico_time
 	arduino-compat
+	# tinyusb_common
+	# tinyusb_board
+	# tinyusb_additions
+	tinyusb_host
 	# pico_neopixel
 	)
 
