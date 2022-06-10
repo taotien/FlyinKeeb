@@ -1,28 +1,20 @@
 import board
+from i2cperipheral import I2CPeripheral
+import busio
 from time import sleep
+from binascii import hexlify
 
-i2c = None
+uart = busio.UART(board.GP0, board.GP1, baudrate=115200)
+print('owo')
+i2c = I2CPeripheral(bus=1, sclPin=3, sdaPin=2, address=0x69)
+data = bytearray(6)
 
-while not i2c:
-    try:
-        i2c = board.I2C()
-    except:
-        print("waiting for i2c device")
-        sleep(1)
-        pass
+while True:
+    if not i2c.have_recv_req():
+#         print('norecv')
+#         sleep(1)
+        continue
 
-while not i2c.try_lock():
-    pass
-
-try:
-    #  devices = i2c.scan()
-    #  print(devices[0])
-    res = bytearray(4)
-    while True:
-        i2c.readfrom_into(0x69, res)
-        print(res.decode())
-        sleep(1)
-
-    
-finally:
-    i2c.unlock()
+    else:
+        i2c.recv(data)
+        print(hexlify(data))

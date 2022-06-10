@@ -1,3 +1,4 @@
+#include <hardware/i2c.h>
 #include <bsp/rp2040/board.h>
 #include <tusb.h>
 
@@ -77,8 +78,11 @@ static void process_kbd_report(hid_keyboard_report_t const *report)
 					       report->keycode[i])) {
 				// key is held
 			} else {
-				printf("%d", report->keycode[i]);
-				fflush(stdout);
+				// i2c_write_timeout_us(i2c_default, 0x69,
+				//                      report->keycode, 6, true,
+				//                      10000);
+				i2c_write_blocking(i2c_default, 0x69,
+						   report->keycode, 6, true);
 			}
 		}
 	}
