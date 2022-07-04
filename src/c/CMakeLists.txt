@@ -1,7 +1,5 @@
 add_executable(${PROJECT_NAME}
 	main.c
-	i2c.cpp
-	keyboard.c
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

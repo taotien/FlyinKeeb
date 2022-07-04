@@ -7,7 +7,7 @@ find_package(tinyusb CONFIG)
 
 project(FlyinKeeb)
 
-set(PICO_BOARD adafruit_feather_rp2040)
+set(PICO_BOARD adruino_nano_rp2040_connect)
 
 pico_sdk_init()
 
